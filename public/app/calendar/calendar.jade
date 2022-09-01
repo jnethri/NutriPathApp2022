@@ -1,0 +1,76 @@
+section#daily(ng-controller="CalendarCtrl as vm")
+	h1 Calendar
+	p.intro This is a list of your daily nutritional totals and how they compare to your goals.
+	p
+		btn.btn.btn-primary(ng-click="vm.goToDaily()") Add A New Day
+	h3.subtitle Daily List
+	p.intro(ng-show="vm.selectedItems.length == 0") Go to the daily page to calculate your totals for today or a previous day.
+	p.intro Green and red don't necessarily mean healthy or unhealthy, just how far under or over you are compared to your daily goals. A certain color will often be good in one category and bad in another depending upon your goals.
+	p.intro Your default daily goals are based off USDA recommended values. You can customize these values below.
+	table.calendar-key.pull-right
+		tr
+			td.cr40 < 50%
+			td.cr50 50-60%
+			td.cr60 60-70%
+			td.cr70 70-80%
+			td.cr80 80-90%
+			td.cr90 90-100%
+			td.cr100 100-110%
+			td.cr110 110-120%
+			td.cr120 120-130%
+			td.cr130 130-140%
+			td.cr140 140-150%
+			td.cr150 > 150%
+	table.database-items.calendar-days(ng-show="vm.days.length > 0")
+		tr
+			th Date
+			th Calories
+			th Fat
+			th Carbs
+			th Protein
+			th Sodium
+			th Fiber
+			th(colspan="2")
+		tr(ng-repeat="day in vm.days | orderBy:'date':true ")
+			td <strong>{{day.date | date:'MM/dd/yyyy'}}</strong>
+			td(ng-class="day.caloriesHex") {{day.calories | number:0}}
+			td(ng-class="day.fatHex") {{day.fat | number:2}}
+			td(ng-class="day.carbsHex") {{day.carbs | number:2}}
+			td(ng-class="day.proteinHex") {{day.protein | number:2}}
+			td(ng-class="day.sodiumHex") {{day.sodium | number:0}}
+			td(ng-class="day.fiberHex") {{day.fiber | number:2}}
+			td.edit-item(ng-click="vm.editDay(day)")
+				span.glyphicon.glyphicon-edit
+			td.delete-item(ng-click="vm.deleteDay(day._id)")
+				span.glyphicon.glyphicon-remove
+		tr.calendar-goals
+			td <strong>Your Daily Goals</strong>
+			td
+				span(ng-hide="vm.editingGoals") {{vm.goals.calories | number:0}}
+				input.form-control(ng-show="vm.editingGoals" ng-model="vm.goals.calories" type="number")
+			td
+				span(ng-hide="vm.editingGoals") {{vm.goals.fat | number:0}}
+				input.form-control(ng-show="vm.editingGoals" ng-model="vm.goals.fat" type="number")
+			td
+				span(ng-hide="vm.editingGoals") {{vm.goals.carbs | number:0}}
+				input.form-control(ng-show="vm.editingGoals" ng-model="vm.goals.carbs" type="number")
+			td
+				span(ng-hide="vm.editingGoals") {{vm.goals.protein | number:0}}
+				input.form-control(ng-show="vm.editingGoals" ng-model="vm.goals.protein" type="number")
+			td
+				span(ng-hide="vm.editingGoals") {{vm.goals.sodium | number:0}}
+				input.form-control(ng-show="vm.editingGoals" ng-model="vm.goals.sodium" type="number")
+			td
+				span(ng-hide="vm.editingGoals") {{vm.goals.fiber | number:0}}
+				input.form-control(ng-show="vm.editingGoals" ng-model="vm.goals.fiber" type="number")
+			td.edit-item(colspan="2" ng-click="vm.editGoals()")
+				span.glyphicon.glyphicon-edit(ng-hide="vm.editingGoals")
+				btn.btn.btn-primary(ng-show="vm.editingGoals" ng-click="vm.saveGoals(vm.goals)") SAVE
+		tr.calendar-average
+			td <strong>Your Daily Averages</strong>
+			td.cr150(ng-class="vm.totals.caloriesHex") {{vm.totals.avgCalories | number:0}}
+			td.cr150(ng-class="vm.totals.fatHex") {{vm.totals.avgFat | number:2}}
+			td.cr150(ng-class="vm.totals.carbsHex") {{vm.totals.avgCarbs | number:2}}
+			td.cr150(ng-class="vm.totals.proteinHex") {{vm.totals.avgProtein | number:2}}
+			td.cr150(ng-class="vm.totals.sodiumHex") {{vm.totals.avgSodium | number:0}}
+			td.cr150(ng-class="vm.totals.fiberHex") {{vm.totals.avgFiber | number:2}}

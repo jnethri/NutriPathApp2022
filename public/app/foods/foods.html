@@ -1,0 +1,80 @@
+<section id="my-foods" ng-controller="FoodsCtrl as vm">
+  <h1>My Foods</h1>
+  <p class="intro" ng-show="vm.items.length == 0"> This page is where you'll want to get started. Use one of the two options below to add foods to your database. Once you have some foods added, go to the <a href="/daily">Daily page</a> to add everything you've eaten in a day.</p>
+  <p class="intro">Use this section to add food items to your database. If you have the nutritional info for a specific food, you can add it in the Add a New Custom Food Item area. You can also query a search in the USDA Database to find the nutritional data for the food you're looking for. </p>
+  <div class="accordion">
+    <div data-toggle="collapse" data-target="#add-food-item"><span class="glyphicon glyphicon-plus-sign"></span>
+      <h2>Add A New Custom Food Item</h2>
+    </div>
+    <div class="collapse" id="add-food-item">
+      <form ng-submit="vm.onSubmit()">
+        <formly-form model="vm.newItem" fields="vm.newItemFields" form="vm.newItemForm">
+          <button class="btn btn-primary" type="submit" ng-disabled="vm.newItemForm.$invalid">Submit</button>
+        </formly-form>
+      </form>
+    </div>
+  </div>
+  <div class="accordion">
+    <div data-toggle="collapse" data-target="#add-usda-item"><span class="glyphicon glyphicon-plus-sign"></span>
+      <h2>Add A New Food Item From USDA Database</h2>
+    </div>
+    <div class="collapse" id="add-usda-item">
+      <div id="usda-search">
+        <input class="form-control" type="text" ng-model="vm.usdaSearchTerm" placeholder="Enter a food"/>
+        <button class="btn btn-primary pull-right" ng-click="vm.usdaSearch(vm.usdaSearchTerm)">Search</button>
+      </div>
+      <table class="usda-results" id="usda-results">
+        <tr ng-repeat="item in vm.usdaSearchResult | orderBy: 'name' " ng-click="vm.usdaSelectItem(item)">
+          <td> <span ng-hide="item.fields.brand_name == 'USDA'">{{item.fields.brand_name}} </span><span>{{item.fields.item_name}}</span></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <h3 class="subtitle">Foods in Database</h3>
+  <input class="pull-right form-control" type="search" id="item-search" placeholder="Search Items" ng-model="itemSearch" ng-show="vm.items.length &gt; 0"/>
+  <table class="database-items foods-items" ng-show="vm.items.length &gt; 0">
+    <tr>
+      <th>Name</th>
+      <th>Portion</th>
+      <th>Calories</th>
+      <th>Fat</th>
+      <th>Carbs</th>
+      <th>Protein</th>
+      <th>Sodium</th>
+      <th>Fiber</th>
+      <th colspan="2"></th>
+    </tr>
+    <tr ng-repeat="item in vm.items | orderBy: 'name' | filter: itemSearch track by $index">
+      <td class="foods-name"><span ng-hide="vm.editState == $index">{{item.name}}</span>
+        <input class="form-control" ng-show="vm.editState == $index" ng-model="item.name" type="text" model-change-blur="model-change-blur"/>
+      </td>
+      <td class="foods-portion"><span ng-hide="vm.editState == $index">{{item.portion}}</span>
+        <input class="form-control" ng-show="vm.editState == $index" ng-model="item.portion" type="text"/>
+      </td>
+      <td><span ng-hide="vm.editState == $index">{{item.calories}}</span>
+        <input class="form-control" ng-show="vm.editState == $index" ng-model="item.calories" type="number"/>
+      </td>
+      <td><span ng-hide="vm.editState == $index">{{item.fat}}</span>
+        <input class="form-control" ng-show="vm.editState == $index" ng-model="item.fat" type="number"/>
+      </td>
+      <td> <span ng-hide="vm.editState == $index">{{item.carbs}}</span>
+        <input class="form-control" ng-show="vm.editState == $index" ng-model="item.carbs" type="number"/>
+      </td>
+      <td> <span ng-hide="vm.editState == $index">{{item.protein}}</span>
+        <input class="form-control" ng-show="vm.editState == $index" ng-model="item.protein" type="number"/>
+      </td>
+      <td> <span ng-hide="vm.editState == $index">{{item.sodium}}</span>
+        <input class="form-control" ng-show="vm.editState == $index" ng-model="item.sodium" type="number"/>
+      </td>
+      <td> <span ng-hide="vm.editState == $index">{{item.fiber}}</span>
+        <input class="form-control" ng-show="vm.editState == $index" ng-model="item.fiber" type="number"/>
+      </td>
+      <td class="edit-item"><span class="glyphicon glyphicon-edit" ng-hide="vm.editState == $index" ng-click="vm.editItem(item, $index)"></span>
+        <btn class="btn btn-primary" ng-show="vm.editState == $index" ng-click="vm.editSave()">SAVE</btn>
+      </td>
+      <td class="delete-item"><span class="glyphicon glyphicon-remove" ng-hide="vm.editState == $index" ng-click="vm.deleteDatabaseItem(item._id)"></span>
+        <btn class="btn btn-primary" ng-show="vm.editState == $index" ng-click="vm.editCancel(item)">CANCEL</btn>
+      </td>
+    </tr>
+  </table>
+</section>

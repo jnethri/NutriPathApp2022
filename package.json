@@ -1,0 +1,33 @@
+{
+  "name": "NutriPath",
+  "version": "1.0.0",
+  "description": "Personal Nutritional Info",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "api-check": "^7.5.3",
+    "body-parser": "^1.19.1",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.17.2",
+    "express-session": "^1.17.2",
+    "jade": "^1.11.0",
+    "method-override": "^2.3.5",
+    "mongoose": "^5.13.14",
+    "morgan": "^1.10.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/it391/NutriPath"
+  },
+  "author": "James Ethridge",
+  "homepage": "https://github.com/it391/NutriPath"
+}

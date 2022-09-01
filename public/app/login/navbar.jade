@@ -1,0 +1,40 @@
+.navbar(ng-controller="NavbarCtrl as vm")
+	.container
+		.navbar-header
+			a.navbar-brand(href="/#/") NutriPath
+		ul.nav.navbar-nav(ng-show="vm.identity.isAuthenticated()")
+			li
+				a(href="/#/calendar") My Path
+			li
+				a(href="/#/daily") Daily
+			li
+				a(href="/#/my-foods") My Foods
+			li
+				a(href="/#/my-meals") My Meals
+		.navbar-right
+			form.navbar-form(ng-hide="vm.identity.isAuthenticated()")
+				.form-group
+					input(type="text", placeholder="Username", class="form-control", ng-model="username")
+				.form-group
+					input(type="password", placeholder="Password", class="form-control", ng-model="password")
+				.form-group
+					button.btn.btn-primary#signin(ng-click="vm.loginUser(username, password)") Sign In
+				.form-group
+					button.btn.btn-primary#signup(ng-click="vm.openSignupModal()") Sign Up
+			ul.nav.navbar-nav.navbar-right#navbar-dropdown(ng-show="vm.identity.isAuthenticated()")
+				li.dropdown
+					a.dropdown-toggle(href="", data-toggle="dropdown") {{vm.identity.currentUser.username}}
+						b.caret
+					ul.dropdown-menu
+						li
+							a(href="", ng-click="vm.logoutUser()") Logout
+	.modal#signup-modal(ng-class="vm.showModal")
+		.modal-dialog
+			.modal-content
+				.modal-header Signup for NutriPath
+				.modal-body
+					form(ng-submit="vm.onSubmit()")
+						formly-form(model="vm.newUser", fields="vm.newUserFields", form="vm.newUserForm")
+							button.btn.btn-primary.signup(type="submit", ng-disabled="vm.NewUserForm.$invalid") Submit
+							button.btn.btn-primary.signup-cancel(ng-click="vm.closeSignupModal()") Cancel
+				.modal-footer

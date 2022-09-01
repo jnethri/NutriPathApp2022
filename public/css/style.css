@@ -1,0 +1,519 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+body{
+	background: lightgreen;
+	font-family: 'Droid Sans', Helvetica, Arial, sans-serif;
+}
+
+
+/* NAVBAR */
+.navbar{
+	background: black;
+	border-bottom: 3px solid darkslateblue;
+	border-radius: 0;
+	height: 75px;
+	margin-bottom: 0;
+}
+.navbar-brand{
+	color: #FFF;
+	font-size: 2em;
+	line-height: 75px;
+	margin: 0 40px 0 0;
+	padding: 0;
+}
+.navbar-brand:hover, .navbar-brand:visited{
+	color: green;
+}
+ul.nav li{
+	margin: 0;
+}
+ul.nav li a{
+	color: white;
+	font-size: 1.25em;
+	height: 72px;
+	line-height: 72px;
+	padding: 0 30px;
+	text-align: center;
+}
+.navbar .nav a:hover, .navbar .nav a:focus{
+	background: green;
+}
+#signin{
+	margin-right: 10px;
+}
+#signin, #signup{
+	background: black;
+}
+
+
+/* DROPDOWN MENU */
+#navbar-dropdown a{
+	color: #FFF;
+	font-size: 1.5em;
+}
+#navbar-dropdown .dropdown-menu a{
+	color: black;
+	font-size: 1.125em !important;
+	height: 45px;
+	line-height: 45px;
+}
+#navbar-dropdown .dropdown-menu a:hover{
+	background: lightgreen;
+}
+
+/*LOGIN FORM*/
+.navbar-right{
+	height: 75px;
+	line-height: 75px;
+}
+.navbar-right form{
+	margin: 0;
+	padding: 0;
+}
+.navbar input{
+	margin-right: 15px;
+}
+
+/* WELCOME PAGE */
+#welcome h1{
+	color: black;
+	font-size: 4em;
+	font-weight: bold;
+	margin-bottom: 35px;
+}
+#welcome p{
+	color: black;
+	font-size: 1.85em;
+	line-height: 1.5em;
+	margin: 30px 0;
+}
+
+/* MAIN CONTAINER */
+.main-container{
+	background: #FFF;
+	border: 1px solid darkred;
+	box-shadow: 10px 10px 25px 0px black;
+	margin: 40px auto 60px;
+	padding: 15px 35px 30px;
+}
+
+.main-container h1{
+	color: darkgreen;
+}
+
+.form-group{
+	float: left;
+	margin-right:; 5px;
+}
+
+#main-container input{
+	width: 70px !important;
+}
+
+#formly_1_input_name_0, #formly_1_input_portion_1{
+	width: 200px !important;
+}
+
+.btn-primary{
+	background: darkgreen;
+	border: 1px solid #333;
+}
+.btn-primary:hover{
+	background: green;
+}
+p.intro{
+	font-size: 1.375em;
+	color: #333;
+	margin: 20px 0 25px;
+}
+h3.subtitle{
+	border-bottom: 1px solid darkgreen;
+	color: #666;
+	margin-top: 40px;
+	padding-bottom: 5px;
+}
+
+/* ADD TO DATABASE FORM*/
+#add-food-item{
+	margin-top: 20px;
+}
+#add-food-item .form-group{
+	width: auto;
+}
+#add-food-item input, #add-food-item label{
+	margin-left: 10px;
+	width: 75px;
+}
+#add-food-item-name{
+	margin-left: 0 !important;
+}
+#add-food-item-name, #add-food-item-portion{
+	width: 200px !important;
+}
+#add-food-item button{
+	margin: 24px 0 0 20px;
+}
+
+/* DATABASE ITEMS */
+#my-foods input[type='search']{
+	margin-bottom: 15px;
+	width: 25%;
+	min-width: 180px;
+}
+.database-items{
+	width: 100%;
+}
+.database-items input[type='search']{
+	float:right;
+}
+.food-items, .meal-items tr:hover{
+	background: #FFEEEE;
+}
+.database-items th{
+	background: darkslateblue;
+	border: 1px solid pink;
+	border-bottom: 0;
+	color: lightpink;
+	font-size: 1.05em;
+	padding: 10px 3px;
+	text-align: center;
+}
+.database-items td{
+	border: 1px solid #CCC;
+	padding: 6px 3px;
+	text-align: center;
+}
+.database-items td:first-child{
+	min-width: 200px;
+	width: auto;
+}
+.database-items span.item-name{
+	color: #333;
+	font-size: 1.125em;
+	font-weight: bold;
+	margin-right: 3px;
+}
+.database-items span.portion{
+	color: #999;
+	display: inline-block;
+	font-size: 0.875em;
+	min-width: 90px;
+}
+.database-items .edit-item, .database-items .delete-item{
+	cursor: pointer;
+	width: 40px;
+}
+
+.foods-items th{
+	font-size: 0.875em;
+}
+.foods-items td{
+	height: 45px;
+	width: 60px;
+}
+.foods-items td.foods-name{
+	font-weight: 700;
+}
+.foods-items td.foods-portion{
+	color: #999;
+	font-size: 0.95em;
+	width: 120px;
+}
+.foods-items td.edit-item, .foods-items td.delete-item{
+	width: 100px;
+}
+
+/* DAILY */
+#daily .col-md-3{
+	padding-left: 0px;
+}
+#daily .col-md-3 input{
+	margin-bottom: 3px;
+}
+.daily-foods td{
+	cursor: pointer;
+	font-size: 0.95em !important;
+}
+.daily-portion{
+	color: #333;
+	display: block;
+	font-size: 0.875em;
+}
+#item-search{
+	margin: 5px 0 10px;
+}
+.daily-items td{
+	background: #FFF7F8;
+	padding: 5px 8px;
+	width: 60px;
+}
+.daily-items th{
+	font-size: 0.875em;
+	padding: 10px 3px;
+}
+.item-totals span{
+	color: #999;
+	display: block;
+	font-size: 0.875em;
+	margin-top: 3px;
+}
+#daily-date{
+	display: inline-block;
+	margin-top: -48px;
+	width: 200px;
+}
+/* ACCORDION */
+.accordion{
+	background: #d7ffd6;
+	border-bottom: 2px solid #CCC;
+	border-top: 2px solid #CCC;
+	cursor: pointer;
+	overflow: auto;
+	margin: 20px 0;
+	padding: 0 15px 10px 15px;
+}
+.accordion h2{
+	color: darkslateblue;
+	display: inline-block;
+	font-size: 1.375em;
+	margin-left: 10px;
+}
+
+/* USDA SEARCH */
+#usda-search input{
+	float: left;
+	height: 45px;
+	margin: 10px 0 20px;
+	width: 87%;
+}
+#usda-search button{
+	font-size: 1.25em;
+	height: 45px;
+	margin-top: 10px;
+	width: 12%;
+}
+.usda-results{
+	width: 100%;
+}
+.usda-results td{
+	background: green;
+	border: 1px solid #EEE;
+	color: #FFF;
+	cursor: pointer;
+	font-size: 1.125em;
+	padding: 7px 15px;
+}
+.usda-results td:hover{
+	background: lightgreen;
+}
+.usda-portions{
+	margin-bottom: 15px;
+}
+.usda-portions td{
+	background: #EEE;
+	border-bottom: 1px solid #CCC;
+	color: darkred;
+	font-size: 1em;
+}
+.usda-portions td:hover{
+	background: #FFF7F8;
+}
+
+
+/* MY MEALS */
+#my-meals .accordion .in{
+	overflow: auto;
+	padding-bottom: 20px;
+}
+#my-meals label{
+	font-size: 1.25em;
+	margin-top: 15px;
+}
+#my-meals .database-items{
+	margin: 5px 0 15px;
+}
+#my-meals .database-items th{
+	background: white;
+	color: black;
+}
+.meals-portion{
+	color: #666;
+	display: block;
+	font-size: 0.75em;
+}
+tr.meal-name td{
+	background: white;
+	padding: 10px 3px;
+}
+tr.add-edit-meals td{
+	background: lightpink;
+	border: 1px solid #666;
+	cursor: pointer;
+}
+tr.add-edit-meals td:hover{
+	background: lightblue;
+}
+
+/* FOOD ITEMS */
+.food-items{
+	border: 1px solid darkred;
+	width: 100%;
+}
+.food-items td{
+	background: lightblue;
+	border: 1px solid #666;
+	color: darkred;
+	font-size: 1.125em;
+	height: 40px;
+	padding: 5px 10px;
+}
+.food-items td:hover{
+	background: darkblue;
+}
+.sub-row{
+	display: non;
+}
+.sub-row td{
+	background: #FFF7F8!important;
+	font-size: 0.875em;
+}
+.meal-items{
+	margin-bottom: 30px!important;
+}
+.meal-items th{
+	padding: 8px 5px;
+}
+.meal-items td{
+	width: 75px!important;
+}
+.meal-items td:first-child{
+	width: 40%!important;
+}
+
+/* CALENDAR */
+
+td.cr0, td.cr10, td.cr20, td.cr30, td.cr40{  background: rgba(255,0,0, 1.00); } /* < 50% */
+td.cr50{ background: rgba(255,0,0, 0.70); } /* 50-60% */
+td.cr60{ background: rgba(255,0,0, 0.60); } /* 60-70% */
+td.cr70{ background: rgba(255,0,0, 0.45); } /* 70-80% */
+td.cr80{ background: rgba(255,0,0, 0.30); } /* 80-90% */
+td.cr90{ background: rgba(255,0,0, 0.15); } /* 90-100% */
+td.cr100{ background: rgba(0,255,0, 0.15); } /* 100-110% */
+td.cr110{ background: rgba(0,255,0, 0.30); } /* 110-120% */
+td.cr120{ background: rgba(0,255,0, 0.45); } /* 120-130% */
+td.cr130{ background: rgba(0,255,0, 0.60); } /* 130-140% */
+td.cr140{ background: rgba(0,255,0, 0.80); } /* 140-150% */
+td.cr150{ background: rgba(0,225,0, 0.80); } /* > 150% */
+
+.calendar-days th{
+	background: #EEE;
+	border: 1px solid #CCC;
+	color: #333;
+}
+.calendar-days td{
+	color: #000;
+	font-size: 1.05em;
+	width: 85px;
+}
+
+.calendar-key{
+	margin-bottom: 35px;
+}
+.calendar-key td{
+	color: #333;
+	font-size: 0.875em;
+	padding: 10px;
+}
+tr.calendar-goals td, tr.calendar-average td{
+	font-size: 1.125em;
+	padding: 15px;
+}
+tr.calendar-goals{
+	border-top:2px solid #666;
+}
+tr.calendar-goals td{
+	font-weight: bold;
+}
+tr.calendar-goals td:first-child{
+	background: #FFF;
+}
+
+/* MODALS */
+.hidden{display: none !important;}
+.show{display: block !important;}
+.modal{background: rgba(0,0,0,0.75);}
+
+.modal-header{
+	background: darkgreen;
+	border-bottom: 3px solid #333;
+	color: #FFF;
+	font-size: 1.75em;
+	text-align: center;
+}
+.modal-body{
+	background: #EEE;
+	padding-top: 25px;
+}
+.modal-body .form-group{
+	margin: 12px 10%;
+	width: 80%;
+}
+.modal-body .control-label{
+	font-size: 1.125em;
+	color: #666;
+}
+.modal-body input.form-control{
+	border-radius: 10px;
+	height: 40px;
+}
+.modal-footer{
+	background: black;
+	color: #FFF;
+	display: none;
+	font-size: 0.875em;
+	padding: 7px;
+	text-align: center;
+}
+.modal-body button{
+	display: inline-block;
+	font-size: 1.375em;
+	margin: 20px 0;
+	padding: 10px;
+	width: 25%;
+}
+.modal-body button.signup{
+	margin-left: 20%;
+	margin-right: 10%;
+}
+
+/* GLYPHICONS */
+.glyphicon-plus-sign{
+	background: #FFF;
+	color: green;
+}
+.glyphicon-remove{
+	color: darkred;
+}
+
+/* BUTTONS */
+.btn-primary[disabled], .btn-primary[disabled]:hover{
+	background: darkred;
+	border: 1px solid #000;
+	color: #FFF;
+}
+
+
+/* TOASTR */
+.toast-top-right {
+	left: 0px;
+  	top: 10px;
+}
+.toast-success {
+	opacity: 1;
+  top: background-color #13987e;
+}

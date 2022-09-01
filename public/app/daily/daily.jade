@@ -1,0 +1,68 @@
+section#daily(ng-controller="DailyCtrl as vm")
+	h1 Daily Food List
+	p.intro(ng-show="vm.items.length == 0") You don't have any foods in your database yet! Visit the <a href="/my-foods">My Foods page</a> to add some foods, and then you come back to this page to view your daily totals.
+	p.intro Use this section to calculate your daily nutritional totals using the foods and meals you've added to your personal mlab database.
+	.col-md-3
+		h3 My Foods
+		input.form-control(type="search", placeholder="Search Items", ng-model="itemSearch")
+		.pre-scrollable
+			table.food-items.daily-foods
+				tr(ng-repeat="item in vm.items | orderBy: 'name' | filter: itemSearch track by $index")
+					td(ng-click="vm.selectItem(item)") 
+						span.daily-name {{item.name}}
+						span.daily-portion {{item.portion}}
+		h3 My Meals
+		input.form-control(type="search", placeholder="Search Meals", ng-model="mealSearch")
+		.pre-scrollable
+			table.food-items.daily-foods
+				tr(ng-repeat="meal in vm.meals | orderBy: 'name' | filter: mealSearch track by $index")
+					td(ng-click="vm.selectItem(meal)") 
+						span.daily-name {{meal.name}}
+	.col-md-9
+		h3.subtitle Daily Totals
+		input.form-control.pull-right#daily-date(ng-model="vm.theDate" type="date")
+		p.intro(ng-show="vm.selectedItems.length == 0") Click on your foods or meals to add them to your list. 
+		p.intro(ng-show="vm.selectedItems.length == 0") If you're adding foods from a previous day, you can use the date-picker object at the top-right to change the date.
+		table.database-items.daily-items(ng-show="vm.selectedItems.length > 0 || vm.editing == true")
+			tr
+				th Name
+				th Calories
+				th Fat
+				th Carbs
+				th Protein
+				th Sodium
+				th Fiber
+			tr(ng-repeat="item in vm.selectedItems track by $index")
+				td <strong>{{item.name}}</strong>
+					span.daily-portion(ng-show="item.portion") {{item.portion}}
+				td {{item.calories | number:0}}
+				td {{item.fat | number:2}}
+				td {{item.carbs | number:2}}
+				td {{item.protein | number:2}}
+				td {{item.sodium | number:2}}
+				td {{item.fiber | number:2}}
+				td.delete-item(ng-click="vm.deleteItem($index)")
+					span.glyphicon.glyphicon-remove
+			tr.item-totals(ng-show="vm.selectedItems.length > 0")
+				td(style="border: none; background: none")
+				td <strong>{{vm.calories | number:0}}</strong>
+					span {{(vm.calories/vm.dvCalories *100).toFixed(1)}}%
+				td <strong>{{vm.fat | number:2}}</strong>
+					span {{(vm.fat/vm.dvFat *100).toFixed(1)}}%
+				td <strong>{{vm.carbs | number:2}}</strong>
+					span {{(vm.carbs/vm.dvCarbs *100).toFixed(1)}}%
+				td <strong>{{vm.protein | number:2}}</strong>
+					span {{(vm.protein/vm.dvProtein *100).toFixed(1)}}%
+				td <strong>{{vm.sodium | number:2}}</strong>
+					span {{(vm.sodium/vm.dvSodium *100).toFixed(1)}}%
+				td <strong>{{vm.fiber | number:2}}</strong>
+					span {{(vm.fiber/vm.dvFiber *100).toFixed(1)}}%
+			tr(ng-show="vm.selectedItems.length > 0 && vm.editing == false")
+				td(colspan="7" style="border:none; background: #FFF; padding: 18px 0 0 0;")
+					btn.btn.btn-primary.pull-right(ng-click="vm.clearDay()") CLEAR ALL
+					btn.btn.btn-primary.pull-right(ng-click="vm.saveDay()" style="margin-right:5px;") SAVE TO MY PATH
+			tr(ng-show="vm.editing")
+				td(colspan="7" style="border:none; background: #FFF; padding: 18px 0 0 0;")
+					btn.btn.btn-primary.pull-right(ng-click="vm.saveEditedDay()") SAVE CHANGES
+					btn.btn.btn-primary.pull-right(ng-click="vm.cancelEditedDay()" style="margin-right:5px;") CANCEL CHANGES				
+					

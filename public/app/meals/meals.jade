@@ -1,0 +1,91 @@
+section#my-meals(ng-controller="MealsCtrl as vm")
+	h1 My Meals
+	p.intro(ng-show="vm.items == 0") You don't have any foods in your database yet! Visit the <a href="/my-foods">My Foods page</a> to add some foods, and then you come back to this page to combine them into meals.
+	p.intro Use this section to combine some of your most common foods into a meal to save time when calculating your daily nutritional info. For example, you could create a meal called Breakfast consisting of toast, eggs, bacon, and milk. 
+	.accordion
+		div(data-toggle="collapse", data-target="#add-meal")
+			span.glyphicon.glyphicon-plus-sign
+			h2 Add A New Meal
+		.collapse#add-meal
+			.col-md-8
+				form(ng-submit="vm.addMeal()")
+					label Name
+					input.form-control(type="text" placeholder="i.e. Breakfast" ng-model="vm.newMeal.name")
+					label Items
+					table.database-items(ng-show="vm.newMeal.items.length > 0")
+						tr
+							th Name
+							th Calories
+							th Fat
+							th Carbs
+							th Protein
+							th Sodium
+							th Fiber
+						tr(ng-repeat="item in vm.newMeal.items track by $index")
+							td {{item.name}}
+								span.meals-portion {{item.portion}}
+							td {{item.calories}}
+							td {{item.fat}}
+							td {{item.carbs}}
+							td {{item.protein}}
+							td {{item.sodium}}
+							td {{item.fiber}}
+						tr
+							td <strong>Totals</strong>
+							td {{vm.newMeal.calories | number:2}}
+							td {{vm.newMeal.fat | number:2}}
+							td {{vm.newMeal.carbs | number:2}}
+							td {{vm.newMeal.protein | number:2}}
+							td {{vm.newMeal.sodium | number:2}}
+							td {{vm.newMeal.fiber | number:2}}
+					button.btn.btn-primary(type="submit" ng-show="vm.newMeal.items.length > 0") Add Meal
+			.col-md-4
+				h3 Select Foods
+				.pre-scrollable
+					table.food-items
+						tr(ng-repeat="item in vm.items | orderBy: 'name'")
+							td(ng-click="vm.addItemToMeal(item)") {{item.name}}
+								span.meals-portion {{item.portion}}
+	h3.subtitle Meals in Database
+	table.database-items.meal-items(ng-repeat="meal in vm.meals | orderBy: 'name' track by $index")
+		tr
+			th
+			th Calories
+			th Fat
+			th Carbs
+			th Protein
+			th Sodium
+			th Fiber
+			th(colspan="2")
+		tr.meal-name
+			td <strong>{{meal.name}}</strong>
+			td {{meal.calories | number:0}}
+			td {{meal.fat | number:2}}
+			td {{meal.carbs | number:2}}
+			td {{meal.protein | number:2}}
+			td {{meal.sodium | number:2}}
+			td {{meal.fiber | number:2}}
+			td.edit-item
+				span.glyphicon.glyphicon-edit(ng-click="vm.editMealState($index)" ng-hide="vm.editIndex == $index")
+				btn.btn.btn-primary(ng-click="vm.saveEditedMeal(meal)" ng-show="vm.editIndex == $index") SAVE 
+			td.delete-item
+				span.glyphicon.glyphicon-remove(ng-click="vm.deleteMeal(meal._id)" ng-hide="vm.editIndex == $index")
+				btn.btn.btn-primary(ng-click="vm.cancelMealEdit()" ng-show="vm.editIndex == $index") CANCEL	
+		tr(ng-repeat="item in meal.items" ng-class="{hide: vm.editIndex != $parent.$index}")
+			td {{item.name}}
+			td {{item.calories | number:0}}
+			td {{item.fat | number:2}}
+			td {{item.carbs | number:2}}
+			td {{item.protein | number:2}}
+			td {{item.sodium | number:2}}
+			td {{item.fiber | number:2}}
+			td.delete-item(ng-click="vm.deleteItemFromMeal(meal, $index)" colspan="2")
+				span.glyphicon.glyphicon-remove
+		tr(ng-show="vm.editIndex == $index")
+			td(colspan="9") 
+				btn.btn.btn-primary(ng-click="vm.showAddItemsToEdit()") Add A New Item
+		.pre-scrollable
+			tr.add-edit-meals(ng-show="vm.editIndex == $parent.$index && vm.addState" ng-repeat="item in vm.items | orderBy: 'name'")
+				td(colspan="9" ng-click="vm.addItemsToEdit(item, meal)") {{item.name}}
+					span.meals-portion {{item.portion}}
+

@@ -1,0 +1,69 @@
+section#my-foods(ng-controller="FoodsCtrl as vm")
+	h1 My Foods
+	p.intro(ng-show="vm.items.length == 0")  This page is where you'll want to get started. Use one of the two options below to add foods to your database. Once you have some foods added, go to the <a href="/daily">Daily page</a> to add everything you've eaten in a day.
+	p.intro Use this section to add food items to your database. If you have the nutritional info for a specific food, you can add it in the Add a New Custom Food Item area. You can also query a search in the USDA Database to find the nutritional data for the food you're looking for. 
+	.accordion
+		div(data-toggle="collapse", data-target="#add-food-item")
+			span.glyphicon.glyphicon-plus-sign
+			h2 Add A New Custom Food Item
+		.collapse#add-food-item
+			form(ng-submit="vm.onSubmit()")
+				formly-form(model="vm.newItem", fields="vm.newItemFields", form="vm.newItemForm")
+					button.btn.btn-primary(type="submit", ng-disabled="vm.newItemForm.$invalid") Submit
+	.accordion
+		div(data-toggle="collapse", data-target="#add-usda-item")
+			span.glyphicon.glyphicon-plus-sign
+			h2 Add A New Food Item From USDA Database
+		.collapse#add-usda-item
+			#usda-search
+				input.form-control(type="text" ng-model="vm.usdaSearchTerm" placeholder="Enter a food")
+				button.btn.btn-primary.pull-right(ng-click="vm.usdaSearch(vm.usdaSearchTerm)") Search
+			table.usda-results#usda-results
+				tr(ng-repeat="item in vm.usdaSearchResult | orderBy: 'name' " ng-click="vm.usdaSelectItem(item)")
+					td 
+						span(ng-hide="item.fields.brand_name == 'USDA'") {{item.fields.brand_name}} 
+						span {{item.fields.item_name}}
+	h3.subtitle Foods in Database
+	input.pull-right.form-control(type="search", id="item-search", placeholder="Search Items", ng-model="itemSearch" ng-show="vm.items.length > 0")
+	table.database-items.foods-items(ng-show="vm.items.length > 0")
+		tr
+			th Name
+			th Portion
+			th Calories
+			th Fat
+			th Carbs
+			th Protein
+			th Sodium
+			th Fiber
+			th(colspan="2")
+		tr(ng-repeat="item in vm.items | orderBy: 'name' | filter: itemSearch track by $index")
+			td.foods-name
+				span(ng-hide="vm.editState == $index") {{item.name}}
+				input.form-control(ng-show="vm.editState == $index" ng-model="item.name" type="text" model-change-blur) 
+			td.foods-portion
+				span(ng-hide="vm.editState == $index") {{item.portion}}
+				input.form-control(ng-show="vm.editState == $index" ng-model="item.portion" type="text") 
+			td
+				span(ng-hide="vm.editState == $index") {{item.calories}}
+				input.form-control(ng-show="vm.editState == $index" ng-model="item.calories" type="number") 
+			td
+				span(ng-hide="vm.editState == $index") {{item.fat}}
+				input.form-control(ng-show="vm.editState == $index" ng-model="item.fat" type="number") 
+			td 
+				span(ng-hide="vm.editState == $index") {{item.carbs}}
+				input.form-control(ng-show="vm.editState == $index" ng-model="item.carbs" type="number") 
+			td 
+				span(ng-hide="vm.editState == $index") {{item.protein}}
+				input.form-control(ng-show="vm.editState == $index" ng-model="item.protein" type="number") 
+			td 
+				span(ng-hide="vm.editState == $index") {{item.sodium}}
+				input.form-control(ng-show="vm.editState == $index" ng-model="item.sodium" type="number") 
+			td 
+				span(ng-hide="vm.editState == $index") {{item.fiber}}
+				input.form-control(ng-show="vm.editState == $index" ng-model="item.fiber" type="number") 
+			td.edit-item
+				span.glyphicon.glyphicon-edit(ng-hide="vm.editState == $index" ng-click="vm.editItem(item, $index)")
+				btn.btn.btn-primary(ng-show="vm.editState == $index" ng-click="vm.editSave()") SAVE
+			td.delete-item
+				span.glyphicon.glyphicon-remove(ng-hide="vm.editState == $index" ng-click="vm.deleteDatabaseItem(item._id)")
+				btn.btn.btn-primary(ng-show="vm.editState == $index" ng-click="vm.editCancel(item)") CANCEL
